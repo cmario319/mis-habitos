@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+<title>365 Cápsulas de Vida</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23D9A441'/%3E%3Cstop offset='1' stop-color='%23C1502E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ccircle cx='50' cy='58' r='22' fill='none' stroke='%23FBF3E7' stroke-width='6'/%3E%3Cpath d='M50 20 L50 34 M50 30 L58 22 M50 30 L42 22' stroke='%23FBF3E7' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cápsulas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF3E7;
+    --card:#FFFFFF;
+    --ink:#2B1B12;
+    --ink-soft:#8A7160;
+    --line:#EDDFC8;
+    --terracotta:#C1502E;
+    --terracotta-deep:#93381F;
+    --terracotta-tint:#F7E3DA;
+    --gold:#D9A441;
+    --gold-tint:#F7ECD3;
+    --gold-deep:#96701F;
+    --navy:#1B2A4A;
+    --navy-tint:#E7EBF3;
+    --shadow: 0 1px 2px rgba(43,27,18,.05), 0 6px 18px rgba(43,27,18,.06);
+  }
+  body.dark{
+    --bg:#12172A;
+    --card:#1B2340;
+    --ink:#EDE6DA;
+    --ink-soft:#9AA3C4;
+    --line:#2A3358;
+    --terracotta:#E08A63;
+    --terracotta-deep:#F2A57D;
+    --terracotta-tint:rgba(224,138,99,.16);
+    --gold:#E8BE6E;
+    --gold-tint:rgba(232,190,110,.14);
+    --gold-deep:#F2CF8C;
+    --navy:#8FA0E0;
+    --navy-tint:rgba(143,160,224,.14);
+    --shadow: 0 1px 2px rgba(0,0,0,.25), 0 8px 22px rgba(0,0,0,.3);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 0%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 45%),
+      radial-gradient(circle at 90% 10%, color-mix(in srgb, var(--terracotta) 10%, transparent), transparent 40%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    padding-bottom:48px;
+    -webkit-font-smoothing:antialiased;
+    transition:background-color .35s ease, color .35s ease;
+  }
+  .wrap{max-width:560px;margin:0 auto;padding:18px 16px 8px;}
+
+  header{padding-top:env(safe-area-inset-top); display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin:2px 0 2px;}
+  h1{font-family:'Fraunces',serif; font-weight:600; font-size:27px; margin:0 0 4px; letter-spacing:-.01em;}
+  .subtitle{font-family:'Lora',serif; font-style:italic; font-size:13.5px; color:var(--ink-soft); margin-bottom:14px;}
+  .theme-btn{width:40px; height:40px; border-radius:12px; border:1px solid var(--line); background:var(--card); display:flex; align-items:center; justify-content:center; font-size:18px; cursor:pointer; margin-top:2px; flex-shrink:0;}
+  .theme-btn:active{transform:scale(.92);}
+  .back-btn{display:flex; align-items:center; gap:6px; background:none; border:none; color:var(--ink-soft); font-family:'JetBrains Mono',monospace; font-size:11.5px; padding:0; margin-bottom:14px; cursor:pointer;}
+
+  .streak-pill{display:inline-flex; align-items:center; gap:6px; background:var(--gold-tint); border:1px solid color-mix(in srgb, var(--gold) 40%, var(--line)); color:var(--gold-deep); font-family:'JetBrains Mono',monospace; font-size:12px; padding:6px 12px; border-radius:999px; margin-bottom:16px;}
+
+  .continue-card{background:linear-gradient(135deg, var(--terracotta), var(--terracotta-deep)); border-radius:18px; padding:18px; color:#FBF3E7; box-shadow:var(--shadow); margin-bottom:22px; position:relative; overflow:hidden;}
+  .continue-card::before{content:""; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(251,243,231,.08) 1px, transparent 1px); background-size:14px 14px;}
+  .continue-eyebrow{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; opacity:.85;}
+  .continue-title{font-family:'Fraunces',serif; font-weight:600; font-size:20px; margin:6px 0 4px;}
+  .continue-sub{font-family:'Lora',serif; font-style:italic; font-size:13px; opacity:.9;}
+  .continue-btn{margin-top:14px; background:#FBF3E7; color:var(--terracotta-deep); border:none; border-radius:10px; padding:10px 16px; font-family:'Inter',sans-serif; font-weight:700; font-size:13px; cursor:pointer;}
+
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:22px 0 12px;}
+  .section-title{font-family:'Fraunces',serif; font-weight:600; font-size:18px;}
+  .section-sub{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft);}
+
+  .pillar-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .pillar-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; box-shadow:var(--shadow); cursor:pointer; position:relative; min-height:104px; display:flex; flex-direction:column; justify-content:space-between;}
+  .pillar-card.locked{opacity:.55; cursor:default;}
+  .pillar-icon{font-size:22px;}
+  .pillar-month{font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em; margin-top:6px;}
+  .pillar-name{font-family:'Fraunces',serif; font-weight:600; font-size:14.5px; margin-top:2px; line-height:1.25;}
+  .pillar-progress{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--terracotta); margin-top:6px;}
+  .lock-badge{position:absolute; top:10px; right:10px; font-size:12px; opacity:.6;}
+
+  .week-list, .day-list{display:flex; flex-direction:column; gap:10px;}
+  .week-card, .day-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; box-shadow:var(--shadow); cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .week-card-title, .day-card-title{font-family:'Fraunces',serif; font-weight:600; font-size:15px;}
+  .week-card-sub, .day-card-sub{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--ink-soft); margin-top:3px;}
+  .day-check{width:26px; height:26px; border-radius:50%; border:1.5px solid var(--line); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:13px; color:transparent;}
+  .day-check.done{background:var(--terracotta); border-color:var(--terracotta); color:#fff;}
+  .fav-star{color:var(--gold); margin-left:4px;}
+
+  .empty{text-align:center; padding:34px 18px; color:var(--ink-soft); font-size:13.5px; background:var(--card); border:1px dashed var(--line); border-radius:14px;}
+
+  /* Capsule modal */
+  .capsule-overlay{position:fixed; inset:0; background:rgba(20,15,10,.6); display:none; z-index:100; overflow-y:auto; -webkit-overflow-scrolling:touch;}
+  .capsule-overlay.show{display:block;}
+  .capsule-sheet{max-width:560px; margin:0 auto; background:var(--bg); min-height:100vh; padding:0 0 40px;}
+  .capsule-top{position:sticky; top:0; background:var(--bg); z-index:5; display:flex; align-items:center; justify-content:space-between; padding:calc(env(safe-area-inset-top) + 12px) 16px 10px; border-bottom:1px solid var(--line);}
+  .capsule-close{width:36px; height:36px; border-radius:10px; border:1px solid var(--line); background:var(--card); font-size:16px; cursor:pointer;}
+  .capsule-fav{width:36px; height:36px; border-radius:10px; border:1px solid var(--line); background:var(--card); font-size:16px; cursor:pointer;}
+  .capsule-fav.active{background:var(--gold-tint); border-color:var(--gold); color:var(--gold-deep);}
+  .capsule-body{padding:18px 18px 8px;}
+  .capsule-eyebrow{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.08em;}
+  .capsule-title{font-family:'Fraunces',serif; font-weight:700; font-size:24px; margin:6px 0 18px; line-height:1.2;}
+  .verse-card{background:var(--navy); color:#F4F6FB; border-radius:16px; padding:18px; margin-bottom:16px;}
+  .verse-ref{font-family:'JetBrains Mono',monospace; font-size:11px; opacity:.7; text-transform:uppercase; letter-spacing:.08em;}
+  .verse-text{font-family:'Lora',serif; font-style:italic; font-size:16px; line-height:1.5; margin-top:8px;}
+  .reflection-text{font-family:'Lora',serif; font-size:15.5px; line-height:1.7; color:var(--ink); margin-bottom:18px;}
+  .quote-strip{border-left:3px solid var(--gold); padding-left:14px; margin-bottom:20px;}
+  .quote-strip-text{font-family:'Fraunces',serif; font-style:italic; font-size:14.5px; color:var(--gold-deep); line-height:1.4;}
+  .quote-strip-author{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--ink-soft); margin-top:5px;}
+  .q-block{margin-bottom:16px;}
+  .q-label{font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px; margin-bottom:7px; display:flex; gap:8px; align-items:flex-start;}
+  .q-num{width:20px; height:20px; border-radius:50%; background:var(--terracotta-tint); color:var(--terracotta-deep); font-family:'JetBrains Mono',monospace; font-size:11px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;}
+  .q-block textarea{width:100%; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:12px; padding:12px; font-family:'Inter',sans-serif; font-size:14px; min-height:64px; resize:vertical;}
+  .q-block textarea:focus{outline:none; border-color:var(--terracotta);}
+  .capsule-actions{display:flex; gap:8px; margin-top:20px;}
+  .btn-complete{flex:1; background:var(--terracotta); color:#fff; border:none; border-radius:12px; padding:13px; font-family:'Inter',sans-serif; font-weight:700; font-size:14.5px; cursor:pointer;}
+  .btn-complete.done{background:var(--gold-tint); color:var(--gold-deep); border:1.5px solid var(--gold);}
+  .btn-share{width:52px; background:var(--card); border:1.5px solid var(--line); border-radius:12px; font-size:17px; cursor:pointer;}
+  .save-note{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--ink-soft); margin-top:8px; display:block; min-height:14px; text-align:center;}
+
+  .fav-list{display:flex; flex-direction:column; gap:8px;}
+  .fav-item{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow); cursor:pointer;}
+  .fav-item-title{font-family:'Fraunces',serif; font-weight:600; font-size:13.5px;}
+  .fav-item-ref{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--ink-soft); margin-top:2px;}
+
+  .backup-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px 18px; box-shadow:var(--shadow);}
+  .backup-row{display:flex; gap:8px; margin-top:4px;}
+  .btn-secondary{flex:1; background:var(--bg); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px; font-family:'Inter',sans-serif; font-weight:600; font-size:13px; cursor:pointer;}
+  .backup-hint{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--ink-soft); margin-top:10px; line-height:1.5;}
+
+  footer{max-width:560px; margin:30px auto 0; padding:0 16px 20px; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--ink-soft); text-align:center; line-height:1.6;}
+
+  .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px); background:var(--ink); color:var(--bg); font-family:'JetBrains Mono',monospace; font-size:12px; padding:9px 16px; border-radius:999px; opacity:0; transition:.25s ease; pointer-events:none; z-index:200; max-width:88vw; text-align:center;}
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  .toast.celebrate{background:var(--terracotta-deep); color:#fff;}
+
+  .modal-overlay{position:fixed; inset:0; background:rgba(20,15,10,.6); display:none; align-items:center; justify-content:center; z-index:150; padding:20px;}
+  .modal-overlay.show{display:flex;}
+  .modal-sheet{background:var(--card); width:100%; max-width:520px; border-radius:20px; padding:20px 18px; animation:popIn .22s ease;}
+  @keyframes popIn{from{transform:scale(.95); opacity:0;} to{transform:scale(1); opacity:1;}}
+  .modal-title{font-family:'Fraunces',serif; font-weight:600; font-size:18px; margin-bottom:3px;}
+  .modal-sub{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft); margin-bottom:12px;}
+  .onboard-step{display:flex; gap:10px; align-items:flex-start; margin-bottom:12px;}
+  .onboard-icon{width:30px; height:30px; border-radius:9px; background:var(--terracotta-tint); color:var(--terracotta-deep); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0;}
+  .modal-body-text{font-size:14px; line-height:1.55; color:var(--ink);}
+  .modal-actions{display:flex; gap:8px; margin-top:14px;}
+  .modal-actions button{flex:1; padding:11px; border-radius:12px; font-family:'Inter',sans-serif; font-weight:600; font-size:14px; cursor:pointer; border:none;}
+  .btn-cancel{background:var(--bg); border:1px solid var(--line) !important; color:var(--ink);}
+  .btn-save{background:var(--terracotta); color:#fff;}
+</style>
+</head>
+<body>
+
+<div class="wrap" id="app"></div>
+<footer>
+  Todo se guarda en este dispositivo y funciona sin conexión.<br>
+  Para usarla como app: Safari → Compartir → Agregar a pantalla de inicio.
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<div class="capsule-overlay" id="capsuleOverlay"><div class="capsule-sheet" id="capsuleSheet"></div></div>
+
+<div class="modal-overlay" id="onboardModal">
+  <div class="modal-sheet">
+    <div class="modal-title">365 Cápsulas de Vida</div>
+    <div class="modal-sub" style="margin-bottom:16px;">Un devocional diario para crecer de forma integral</div>
+    <div class="onboard-step"><div class="onboard-icon">📅</div><div class="modal-body-text">Cada mes trabaja un pilar de tu vida; cada semana, una faceta de ese pilar.</div></div>
+    <div class="onboard-step"><div class="onboard-icon">✦</div><div class="modal-body-text">Cada día abre una cápsula: una reflexión, un pasaje, y preguntas para practicar, agradecer y orar.</div></div>
+    <div class="onboard-step"><div class="onboard-icon">🔥</div><div class="modal-body-text">Marca tu cápsula como completada para construir tu racha diaria.</div></div>
+    <div class="modal-actions"><button class="btn-save" id="onboardClose" style="flex:1;">Comenzar</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="importModal">
+  <div class="modal-sheet">
+    <div class="modal-title">¿Reemplazar tus datos?</div>
+    <div class="modal-sub" style="margin-bottom:12px;">Esto sobrescribirá tu progreso, favoritos y respuestas actuales con los del archivo importado.</div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="importCancel">Cancelar</button>
+      <button class="btn-save" id="importConfirm">Reemplazar</button>
+    </div>
+  </div>
+</div>
+
+<canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
+
+<script>
+const PILLARS = [{"id": 0, "name": "Conexión con Dios", "icon": "🙏", "monthLabel": "Mes 1", "locked": false, "weeks": [{"title": "Quién dice Dios que eres", "days": [{"title": "Creado con propósito", "verseRef": "Efesios 2:10", "versePara": "Dios te formó como una obra de arte, con un propósito preparado de antemano; no eres un accidente ni una copia de nadie más.", "quote": {"text": "Ninguna vida entregada a Dios puede llegar a ser un fracaso.", "author": "D.L. Moody"}, "reflection": "Antes de que nacieras, Dios ya tenía un plan para ti. No eres el resultado del azar ni una copia de alguien más: eres una obra original, hecha con intención. Muchas veces buscamos nuestro valor en lo que logramos o en lo que otros opinan, y eso nos desgasta. Pero tu valor no se construye, se reconoce: ya estaba puesto en ti desde el diseño. Hoy es un buen día para dejar de preguntarte si eres suficiente y empezar a preguntarte para qué fuiste creado. Esa pregunta cambia por completo la forma en que caminas el día.", "questions": ["¿En qué área de tu vida sientes que Dios te está llamando a caminar con propósito hoy?", "¿Qué comparación o inseguridad necesitas soltar para reconocer tu valor en Cristo?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Amado sin condición", "verseRef": "Romanos 5:8", "versePara": "Dios demostró Su amor mostrando que, incluso cuando estabas lejos de Él, ya te amaba; Su amor no esperó a que lo merecieras.", "quote": {"text": "El amor de Dios no depende de lo que hagas; depende de quién es Él.", "author": "Charles Spurgeon"}, "reflection": "El amor de Dios no funciona como el amor humano, que muchas veces se gana o se pierde según el comportamiento. Él te amó primero, antes de que hicieras algo bien o algo mal. Eso significa que no necesitas actuar perfecto para merecer Su cercanía. Si hoy cargas culpa por errores recientes, o sientes que debes 'ganarte' el favor de Dios con buen comportamiento, este es el momento de soltar esa carga. Su amor ya fue entregado, completo, en la cruz. Lo único que se te pide es recibirlo, no producirlo.", "questions": ["¿Qué te cuesta más creer: que Dios te ama, o que te ama sin condiciones?", "¿Hay alguna culpa que estás cargando que ya deberías haber soltado?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Hijo adoptado, no huérfano", "verseRef": "Romanos 8:15", "versePara": "No recibiste un espíritu que te haga vivir con miedo, sino uno que te permite llamar a Dios 'Padre', con la confianza de un hijo.", "quote": {"text": "Dios tiene un hijo perfecto. No tiene hijos adoptivos imperfectos.", "author": "Corrie ten Boom"}, "reflection": "Hay una diferencia enorme entre vivir como huérfano y vivir como hijo. El huérfano se esfuerza por pertenecer, siempre insegurо de su lugar. El hijo simplemente pertenece, y desde ahí actúa. Cuando entiendes que Dios te adoptó, no como una obra de caridad sino como un hijo con herencia y voz, dejas de mendigar aprobación y empiezas a vivir desde la identidad que ya tienes. Hoy, si te sientes inseguro o necesitado de validación, recuerda: no estás tocando la puerta de la casa, ya vives adentro.", "questions": ["¿En qué momentos actúas más como huérfano (buscando aprobación) que como hijo (viviendo seguro)?", "¿Qué cambiaría en tu día si recordaras constantemente que eres hijo de Dios?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Nueva criatura", "verseRef": "2 Corintios 5:17", "versePara": "Si estás en Cristo, eres una nueva creación: lo viejo ya pasó, y ha comenzado algo nuevo en ti.", "quote": {"text": "Dios no está interesado en reparar el pasado; está interesado en crear un futuro nuevo.", "author": "Andrew Murray"}, "reflection": "Uno de los engaños más comunes es pensar que siempre serás definido por tu peor momento, tu peor decisión o tu pasado. Pero la Biblia no dice que Dios te mejora un poco; dice que te hace nuevo. Eso no borra tu historia, pero sí cambia quién decide tu identidad: ya no es tu pasado, es tu Creador. Si hoy sigues cargando una etiqueta vieja —el error, la adicción, la relación rota, la vergüenza— es momento de dejar que Dios la reemplace por la que Él ya te dio.", "questions": ["¿Qué etiqueta del pasado necesitas dejar de cargar hoy?", "¿Cómo se vería tu día si vivieras plenamente como la persona nueva que Dios dice que eres?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Templo del Espíritu", "verseRef": "1 Corintios 6:19", "versePara": "Tu cuerpo no es solo tuyo: es morada del Espíritu Santo, un lugar que Dios eligió para habitar.", "quote": {"text": "No pertenecéis a vosotros mismos, fuisteis comprados por precio.", "author": "Charles Spurgeon"}, "reflection": "Es fácil tratar el cuerpo, el tiempo y la energía como algo puramente personal, para usar como se nos antoje. Pero si Dios eligió habitar en ti, eso cambia cómo cuidas cada parte de tu vida: lo que ves, lo que comes, cómo descansas, en qué gastas tus horas. No se trata de perfección ni de reglas rígidas, sino de honrar el lugar donde Dios decidió quedarse. Hoy puedes preguntarte, sin culpa y con honestidad, si estás cuidando ese templo o simplemente sobreviviendo en él.", "questions": ["¿Qué área de tu cuerpo, mente o tiempo necesita más cuidado esta semana?", "¿En qué sentido cambia tu forma de vivir el saber que Dios habita en ti?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Escogido y llamado", "verseRef": "1 Pedro 2:9", "versePara": "Eres parte de un pueblo escogido, apartado no para presumir, sino para mostrar a otros la bondad de Aquel que te llamó.", "quote": {"text": "Dios no llama a los capacitados, capacita a los llamados.", "author": "Anónimo, tradición pastoral"}, "reflection": "El llamado de Dios rara vez llega cuando te sientes preparado. Muchas veces llega cuando te sientes exactamente lo contrario: inseguro, incapaz, con más preguntas que certezas. Pero el llamado no depende de tu capacidad, depende de Su fidelidad. Si sientes que Dios te está empujando hacia algo —una conversación, un cambio, un paso de fe— y tu primera reacción es 'no estoy listo', recuerda que ese sentimiento no descalifica el llamado. Solo confirma que necesitas depender de Él para caminarlo.", "questions": ["¿Hacia qué está Dios llamándote actualmente, aunque no te sientas preparado?", "¿Qué te está deteniendo de dar el primer paso?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Descanso en Su identidad", "verseRef": "Salmo 46:10", "versePara": "Quédate quieto y reconoce que Él es Dios; no todo depende de tu esfuerzo constante.", "quote": {"text": "El descanso no es el premio del trabajo; es la base desde la que trabajamos bien.", "author": "Tradición reformada"}, "reflection": "Cierra esta primera semana no con una tarea más, sino con una pausa. Toda la semana hemos hablado de identidad: creado, amado, adoptado, nuevo, templo, llamado. Hoy simplemente detente y deja que esas verdades se asienten, sin agregar nada nuevo que hacer. Vivimos tan acostumbrados a demostrar que a veces se nos olvida simplemente ser. Hoy, sé. Descansa en lo que ya eres delante de Dios, sin la urgencia de producir algo más.", "questions": ["¿Qué verdad de esta semana necesitas recordar con más frecuencia?", "¿Cómo se ve para ti un descanso genuino, no solo físico sino de identidad?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}]}, {"title": "Buscar Su presencia cada día", "days": [{"title": "El primer lugar del día", "verseRef": "Éxodo 33:14", "versePara": "Dios promete que Su presencia irá contigo y te dará descanso, si tú decides buscarla primero.", "quote": {"text": "Aquel que empieza el día sin Dios, tampoco lo termina con Él en el corazón.", "author": "Andrew Murray"}, "reflection": "Lo primero que tocamos en la mañana —el teléfono, las noticias, la lista de pendientes— suele marcar el tono del resto del día. Buscar a Dios primero no es una fórmula mágica, pero sí una decisión que ordena las prioridades antes de que el ruido del día las desordene. No tiene que ser una hora larga; puede ser un minuto de silencio antes de levantarte. Lo importante no es la duración, es la intención: decidir que Su presencia va antes que cualquier otra cosa.", "questions": ["¿Qué es lo primero que sueles hacer al despertar, y qué lugar ocupa Dios ahí?", "¿Qué pequeño cambio podrías hacer mañana para buscar Su presencia antes que el ruido?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Oración como conversación", "verseRef": "Filipenses 4:6", "versePara": "No te angusties por nada; en cambio, presenta todo delante de Dios en oración, con un corazón agradecido.", "quote": {"text": "La oración no es vencer la renuencia de Dios, es aferrarse a Su buena voluntad.", "author": "Martín Lutero"}, "reflection": "Muchos crecimos pensando que orar es recitar algo correcto, en el tono adecuado, con las palabras precisas. Pero la oración, en el fondo, es una conversación: puedes llegar con miedo, con enojo, con cansancio, con alegría, y Dios sigue escuchando. No necesitas 'arreglarte' antes de hablar con Él. Hoy intenta orar como si estuvieras hablando con alguien que ya te conoce por completo y aun así quiere escucharte, porque así es exactamente como es.", "questions": ["¿Qué tema de tu vida no has llevado todavía a la oración, tal como está, sin adornarlo?", "¿Qué te impide orar con más naturalidad y menos formalidad?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Silencio para escuchar", "verseRef": "1 Reyes 19:12", "versePara": "Dios no siempre habla en el viento fuerte ni en el terremoto; muchas veces habla en un susurro suave y apacible.", "quote": {"text": "Dios nos habla, pero nuestro ruido interior nos impide escucharlo.", "author": "A.W. Tozer"}, "reflection": "Vivimos rodeados de ruido: notificaciones, música, conversaciones, pendientes. El profeta Elías esperaba una señal grande de Dios, y la encontró en el silencio. A veces buscamos a Dios en lo espectacular cuando Él prefiere hablarnos en lo quieto. Hoy, intenta apartar un momento —aunque sea breve— sin pantallas, sin ruido, solo en silencio. No para pedir nada, solo para escuchar lo que quizás llevas días sin poder oír.", "questions": ["¿Cuándo fue la última vez que estuviste realmente en silencio, sin distracciones?", "¿Qué crees que Dios podría estar queriendo decirte en el silencio?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "La Palabra como alimento diario", "verseRef": "Mateo 4:4", "versePara": "No solo de pan vive el ser humano, sino de toda palabra que sale de la boca de Dios.", "quote": {"text": "Un texto bíblico bien entendido vale más que mil superficialmente leídos.", "author": "Charles Spurgeon"}, "reflection": "Así como el cuerpo necesita comida todos los días, no solo una vez a la semana, el alma necesita ser alimentada con constancia. No se trata de leer mucho, sino de leer con atención, dejando que una idea se quede contigo durante el día. Hoy elige un solo versículo —puede ser el de esta cápsula— y llévalo contigo. Repítelo mientras trabajas, mientras esperas, mientras caminas. Deja que se vuelva parte de cómo piensas, no solo algo que leíste una vez.", "questions": ["¿Qué verdad bíblica necesitas recordar hoy en medio de tus actividades?", "¿Qué obstáculo real te impide leer la Palabra con más constancia?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Adoración en lo cotidiano", "verseRef": "Colosenses 3:23", "versePara": "Todo lo que hagas, hazlo de corazón, como para el Señor y no solamente para las personas.", "quote": {"text": "El trabajo se convierte en adoración cuando se hace para la audiencia de Uno.", "author": "A.W. Tozer"}, "reflection": "Adorar no se limita a cantar o levantar las manos; también es la actitud con la que lavas los platos, respondes un correo o atiendes a un cliente difícil. Cuando entiendes que cada tarea puede hacerse 'para el Señor', el trabajo más aburrido cambia de sentido. No es que el trabajo se vuelva mágicamente fácil, sino que deja de sentirse vacío. Hoy, elige una tarea ordinaria y hazla intencionalmente como un acto de adoración.", "questions": ["¿Qué tarea rutinaria de hoy podrías convertir conscientemente en un acto de adoración?", "¿Qué cambia en tu actitud cuando piensas en 'para quién' realmente trabajas?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Presencia en medio del trabajo", "verseRef": "Génesis 39:2-3", "versePara": "El Señor estaba con José incluso en medio de la dificultad, y eso se notaba en todo lo que hacía.", "quote": {"text": "Dios no siempre nos saca de la situación difícil; muchas veces camina con nosotros dentro de ella.", "author": "Tradición pastoral"}, "reflection": "José fue vendido, traicionado y encarcelado injustamente, y aun así la Escritura repite una frase: 'el Señor estaba con él'. Su presencia no eliminó las circunstancias difíciles, pero sí las acompañó. A veces esperamos que Dios cambie la situación antes de sentir Su cercanía, cuando muchas veces Su cercanía es lo que nos sostiene dentro de la situación. Si hoy atraviesas algo difícil en tu trabajo o tus finanzas, no busques solo la salida: busca también Su compañía en el proceso.", "questions": ["¿En qué circunstancia difícil actual necesitas recordar que Dios está presente contigo?", "¿Cómo cambiaría tu actitud si dejaras de esperar solo el rescate y empezaras a notar Su compañía?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Un día para recordar Su fidelidad", "verseRef": "Lamentaciones 3:22-23", "versePara": "Sus misericordias son nuevas cada mañana; grande es Su fidelidad.", "quote": {"text": "Cuenta tus bendiciones, no tus problemas.", "author": "Tradición pastoral"}, "reflection": "Cierra esta semana haciendo memoria. No de lo que salió mal, sino de las veces —esta semana, este mes, este año— en que Dios ha sido fiel contigo, incluso en momentos que quizás ya olvidaste. La memoria espiritual es frágil: tendemos a recordar lo urgente y olvidar lo fiel. Hoy, detente y haz una lista, mental o escrita, de al menos tres momentos recientes donde reconoces Su mano. Esa lista se convierte en combustible para la fe cuando lleguen los días difíciles.", "questions": ["¿Qué tres momentos recientes reconoces claramente como fidelidad de Dios en tu vida?", "¿Cómo puedes recordar más intencionalmente Su fidelidad en tu rutina diaria?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}]}, {"title": "Confianza y fe en Su plan", "days": [{"title": "Cuando no entiendes el camino", "verseRef": "Proverbios 3:5-6", "versePara": "Confía en el Señor de todo corazón y no te apoyes en tu propio entendimiento; reconócelo en todo, y Él enderezará tus caminos.", "quote": {"text": "La fe no elimina las preguntas; aprende a vivir con ellas sin dejar de confiar.", "author": "Tradición pastoral"}, "reflection": "Hay temporadas donde el camino simplemente no tiene sentido desde donde estás parado. Confiar en Dios no significa entender cada paso; significa seguir caminando aunque el mapa completo no se te haya mostrado todavía. Apoyarte en tu propio entendimiento suena razonable, pero tiene un límite: tu perspectiva es parcial. La de Dios no. Hoy, si estás en medio de una decisión o un proceso confuso, practica soltar la necesidad de entenderlo todo antes de confiar.", "questions": ["¿Qué situación actual no logras entender del todo, y qué significaría confiar en medio de esa falta de claridad?", "¿En qué te apoyas normalmente cuando no confías del todo en Dios?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Fe más allá del sentir", "verseRef": "Hebreos 11:1", "versePara": "La fe es la certeza de lo que se espera, la convicción de lo que no se ve.", "quote": {"text": "La fe no es la ausencia de duda, es actuar a pesar de ella.", "author": "Corrie ten Boom"}, "reflection": "Los sentimientos son reales, pero no siempre son confiables como brújula. Hay días donde sientes la presencia de Dios con claridad, y otros donde todo parece silencio. La fe genuina no depende de sentir constantemente; depende de sostenerse en lo que sabes que es cierto, incluso cuando no lo sientes. Si hoy tu fe se siente más seca que viva, eso no te descalifica: simplemente significa que es momento de caminar por convicción, no por emoción.", "questions": ["¿Qué área de tu fe está sostenida más en sentimientos que en convicción?", "¿Qué verdad de Dios sigue siendo cierta hoy, aunque no la sientas con fuerza?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Entregar el control", "verseRef": "Salmo 55:22", "versePara": "Encomienda tus cargas al Señor, y Él te sostendrá; nunca dejará caer al justo.", "quote": {"text": "Suelta lo que no puedes controlar y sostén lo que sí puedes: tu confianza en Dios.", "author": "Tradición pastoral"}, "reflection": "Sostener el control de todo es agotador, y en el fondo, es una ilusión: hay mucho más fuera de nuestras manos de lo que nos gustaría admitir. Entregar una carga a Dios no significa dejar de actuar con responsabilidad; significa dejar de cargar con el peso de resultados que nunca te correspondieron a ti. Hoy identifica una carga específica —una preocupación, una relación, una decisión pendiente— y practica, de forma concreta, entregarla en oración en lugar de seguir controlándola mentalmente.", "questions": ["¿Qué carga específica necesitas entregarle a Dios hoy, en lugar de seguir cargándola tú solo?", "¿Qué te cuesta más soltar: el control de las circunstancias o el control de las personas?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Su tiempo no es el nuestro", "verseRef": "Eclesiastés 3:1", "versePara": "Todo tiene su tiempo, y hay un momento oportuno para cada cosa bajo el cielo.", "quote": {"text": "Dios rara vez llega tarde, aunque casi nunca llega según nuestro calendario.", "author": "Tradición pastoral"}, "reflection": "La espera es una de las experiencias más difíciles de la vida de fe, porque nos hace sentir que algo está mal o detenido. Pero muchas de las historias más importantes de la Biblia incluyen largos periodos de espera antes de la promesa cumplida. El tiempo de Dios no es lento ni descuidado; simplemente no está sincronizado con nuestra ansiedad. Si hoy estás esperando algo —una respuesta, una puerta, una sanidad, un cambio— la espera no es tiempo perdido, es tiempo de preparación.", "questions": ["¿Qué estás esperando actualmente que te cuesta confiar que llegará en el momento correcto?", "¿Qué podrías estar aprendiendo o preparando en esta etapa de espera?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Caminar sin ver todo el mapa", "verseRef": "Génesis 12:1", "versePara": "Dios le dijo a Abram: sal de tu tierra, hacia la tierra que yo te mostraré; no le reveló el destino completo, solo el primer paso.", "quote": {"text": "La obediencia rara vez viene con el mapa completo; casi siempre viene con una sola indicación clara.", "author": "Tradición pastoral"}, "reflection": "Abram no recibió un itinerario detallado; recibió una instrucción y una promesa. Tuvo que caminar confiando en que se le mostraría el siguiente paso, no todos a la vez. Muchas veces esperamos tener claridad total antes de movernos, y eso nos mantiene paralizados. La fe bíblica generalmente funciona al revés: primero el paso de obediencia, después la claridad que solo se ve caminando. Hoy pregúntate cuál es tu 'primer paso' pendiente, no el plan completo.", "questions": ["¿Cuál es el primer paso concreto que Dios te está pidiendo dar, aunque no veas todo el camino?", "¿Qué te ha estado paralizando por falta de claridad total?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Fe que actúa", "verseRef": "Santiago 2:17", "versePara": "La fe, si no tiene obras, está muerta; una fe real siempre se traduce en acción.", "quote": {"text": "No basta con creer en el barco; hay que subirse a él.", "author": "Charles Spurgeon"}, "reflection": "Es fácil decir que confiamos en Dios mientras seguimos actuando exactamente como si no confiáramos: acumulando ansiedad, controlando cada detalle, evitando el paso que sabemos que debemos dar. La fe genuina no se queda solo en la mente o en las palabras; se mueve. Hoy, identifica una decisión donde has estado 'creyendo' pero no actuando, y da un paso concreto y pequeño en esa dirección, confiando en que Dios respalda a quien camina, no solo a quien piensa en caminar.", "questions": ["¿En qué área dices confiar en Dios, pero tus acciones muestran lo contrario?", "¿Qué paso concreto puedes dar hoy que refleje una fe activa, no solo una fe mental?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Reposo en Su soberanía", "verseRef": "Isaías 55:8-9", "versePara": "Mis pensamientos no son los de ustedes, ni sus caminos los míos, dice el Señor; así como los cielos son más altos que la tierra.", "quote": {"text": "Dios está trabajando incluso cuando no puedes ver ni sentir nada.", "author": "Tradición pastoral"}, "reflection": "Cierra esta semana reconociendo algo liberador: no todo depende de que tú lo entiendas o lo resuelvas todo. Dios opera con una perspectiva que sobrepasa la nuestra, y eso, lejos de ser motivo de ansiedad, puede ser motivo de descanso. No necesitas cargar el peso de tener todas las respuestas; ese peso nunca fue tuyo. Hoy, permite que esta verdad te dé permiso para descansar de la necesidad de controlarlo todo.", "questions": ["¿Qué situación necesitas dejar completamente en manos de la soberanía de Dios esta semana?", "¿Cómo sería tu semana si vivieras con más reposo y menos necesidad de controlar los resultados?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}]}, {"title": "Vivir agradecido ante Su gracia", "days": [{"title": "Gracia inmerecida", "verseRef": "Efesios 2:8-9", "versePara": "Por gracia has sido salvo, mediante la fe; y esto no procede de ti, es regalo de Dios, no resultado de tus obras.", "quote": {"text": "La gracia no es Dios cerrando los ojos ante el pecado; es Dios pagando por él Él mismo.", "author": "Tradición reformada"}, "reflection": "Uno de los conceptos más difíciles de recibir —no solo de entender— es que la gracia no se gana. Todo en la vida nos enseña lo contrario: lo que quieres, lo trabajas; lo que mereces, lo ganas. Pero la gracia funciona distinto: es un regalo, no un salario. Eso significa que no puedes hacer lo suficiente para merecerla, pero tampoco puedes hacer tanto como para perderla si ya la recibiste en Cristo. Hoy, deja de intentar 'pagarla' y simplemente recíbela.", "questions": ["¿En qué área sigues intentando 'ganarte' algo que Dios ya te dio como regalo?", "¿Qué cambiaría si dejaras de medir tu cercanía con Dios por tu desempeño?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "De la culpa a la libertad", "verseRef": "Romanos 8:1", "versePara": "Ninguna condenación hay para los que están en Cristo Jesús; la culpa ya no tiene la última palabra sobre ti.", "quote": {"text": "Confiesa tu pecado, pero no vivas confesando tu identidad como pecador; vive tu identidad como perdonado.", "author": "Tradición pastoral"}, "reflection": "Hay una diferencia entre convicción y condenación. La convicción te señala algo que debes corregir y te invita a caminar hacia adelante. La condenación te mantiene atrapado, repitiendo el mismo error en tu mente una y otra vez, sin salida. Dios usa la convicción para guiarte; el enemigo usa la condenación para paralizarte. Si hoy sigues repasando un error que ya confesaste y soltaste, quizás no estés viviendo en convicción sino en condenación innecesaria. Es momento de caminar en la libertad que ya te fue dada.", "questions": ["¿Qué culpa sigues cargando por algo que ya confesaste y deberías haber soltado?", "¿Cómo se ve para ti caminar hoy en libertad en lugar de en condenación?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Gratitud como hábito", "verseRef": "1 Tesalonicenses 5:18", "versePara": "Den gracias en toda situación, porque esta es la voluntad de Dios para ustedes en Cristo Jesús.", "quote": {"text": "La gratitud convierte lo que tenemos en suficiente.", "author": "Tradición pastoral"}, "reflection": "La gratitud no siempre es un sentimiento espontáneo; muchas veces es una decisión que se practica hasta que se vuelve costumbre. No se nos pide agradecer solo cuando todo va bien, sino 'en toda situación' — lo cual no significa agradecer por lo malo, sino encontrar algo por qué agradecer incluso dentro de lo difícil. Hoy, intenta convertir la gratitud en un hábito consciente: antes de dormir, nombra tres cosas específicas, por pequeñas que sean, por las que puedes agradecer hoy.", "questions": ["¿Qué tres cosas concretas puedes agradecer hoy, aunque el día haya sido difícil?", "¿Qué diferencia notas cuando practicas la gratitud de forma intencional en vez de esperar a sentirla?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Servir por amor, no por obligación", "verseRef": "Gálatas 5:13", "versePara": "Fueron llamados a la libertad; pero no usen esa libertad para el egoísmo, sino sírvanse unos a otros por amor.", "quote": {"text": "El servicio hecho por obligación se agota; el servicio hecho por amor se multiplica.", "author": "Tradición pastoral"}, "reflection": "Hay una diferencia notable entre servir porque 'toca' y servir porque quieres. El primero desgasta y genera resentimiento tarde o temprano; el segundo, aunque también cansa físicamente, sostiene el corazón. La gracia que recibiste no fue para guardarla solo para ti, sino para que fluyera hacia otros a través de un servicio genuino. Hoy, elige un acto de servicio pequeño —una llamada, una ayuda, un gesto— y hazlo intencionalmente por amor, no porque se espera de ti.", "questions": ["¿En qué área sirves más por obligación que por amor genuino?", "¿A quién podrías servir hoy de una forma concreta y desinteresada?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Testimonio de Su gracia", "verseRef": "2 Corintios 1:3-4", "versePara": "Dios nos consuela en todas nuestras dificultades, para que podamos consolar a otros con el mismo consuelo que hemos recibido.", "quote": {"text": "Tu peor capítulo puede convertirse en el testimonio que más ayude a alguien más.", "author": "Tradición pastoral"}, "reflection": "Muchas veces queremos ocultar las partes más difíciles de nuestra historia, como si fueran algo de qué avergonzarse. Pero la Biblia sugiere algo distinto: el mismo consuelo que recibiste en tu dificultad puede convertirse en la herramienta que consuele a alguien más que está pasando por algo parecido. No se trata de exponer todo públicamente, sino de estar dispuesto a compartir tu historia cuando pueda ayudar a otro. Hoy, piensa en alguien que podría necesitar escuchar cómo Dios te sostuvo en un momento difícil.", "questions": ["¿Qué parte de tu historia podría convertirse en aliento para alguien que está pasando algo similar?", "¿Hay alguien específico a quien podrías compartirle tu testimonio esta semana?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Compartir lo recibido", "verseRef": "Mateo 10:8", "versePara": "Gratuitamente recibieron; den también gratuitamente.", "quote": {"text": "Lo que Dios te ha dado nunca fue solo para ti; siempre fue también para alguien más.", "author": "Tradición pastoral"}, "reflection": "Todo lo que has recibido de Dios —tiempo, dones, recursos, sanidad, palabras de aliento— tiene un propósito más grande que tu propio beneficio. No fue dado para acumularse, sino para circular. Cuando retenemos lo que recibimos gratuitamente, se estanca; cuando lo compartimos, se multiplica en la vida de otros. Hoy, identifica algo que Dios te ha dado en abundancia —puede ser conocimiento, tiempo, paciencia, recursos— y encuentra una forma concreta de compartirlo con alguien que lo necesite.", "questions": ["¿Qué has recibido de Dios en abundancia que podrías compartir más generosamente con otros?", "¿Qué te detiene normalmente de compartir libremente lo que has recibido?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}, {"title": "Cierre del mes: revisión y renovación", "verseRef": "Lamentaciones 3:22-23", "versePara": "Por la misericordia del Señor no hemos sido consumidos, porque Sus misericordias son nuevas cada mañana.", "quote": {"text": "Cada día es una nueva oportunidad para caminar más cerca de Dios que ayer.", "author": "Tradición pastoral"}, "reflection": "Has terminado el primer mes de este recorrido: Conexión con Dios. Antes de avanzar al siguiente pilar, tómate un momento para mirar hacia atrás sin prisa. No para evaluarte con dureza, sino para reconocer honestamente qué cambió, qué costó, y qué verdad se quedó contigo con más fuerza. Este es apenas el comienzo de un año construido con intención. Lo que sembraste este mes en tu relación con Dios sostiene todo lo que viene después.", "questions": ["¿Qué fue lo más significativo que Dios te mostró este mes?", "¿Qué práctica de este mes te gustaría llevar contigo hacia el siguiente pilar?", "¿Por qué le agradeces a Dios hoy?", "¿Cuál es tu motivo de oración en este momento?"]}]}]}, {"id": 1, "name": "Identidad y desarrollo personal", "icon": "🌱", "monthLabel": "Mes 2", "locked": true, "weeks": []}, {"id": 2, "name": "Familia", "icon": "🏡", "monthLabel": "Mes 3", "locked": true, "weeks": []}, {"id": 3, "name": "Amistad y comunidad", "icon": "🤝", "monthLabel": "Mes 4", "locked": true, "weeks": []}, {"id": 4, "name": "Amor y pareja", "icon": "💞", "monthLabel": "Mes 5", "locked": true, "weeks": []}, {"id": 5, "name": "Mayordomía financiera", "icon": "💰", "monthLabel": "Mes 6", "locked": true, "weeks": []}, {"id": 6, "name": "Propósito y trabajo", "icon": "🎯", "monthLabel": "Mes 7", "locked": true, "weeks": []}, {"id": 7, "name": "Salud del cuerpo", "icon": "🕊️", "monthLabel": "Mes 8", "locked": true, "weeks": []}, {"id": 8, "name": "Servicio y generosidad", "icon": "🤲", "monthLabel": "Mes 9", "locked": true, "weeks": []}, {"id": 9, "name": "Perdón y sanidad emocional", "icon": "🩹", "monthLabel": "Mes 10", "locked": true, "weeks": []}, {"id": 10, "name": "Fe en la adversidad", "icon": "⚓", "monthLabel": "Mes 11", "locked": true, "weeks": []}, {"id": 11, "name": "Gratitud y celebración", "icon": "✨", "monthLabel": "Mes 12", "locked": true, "weeks": []}];
+const STORAGE_KEY = 'capsulas-state';
+
+let state = { progress:{}, favorites:[], settings:{dark:false, onboarded:false}, lastOpened:null };
+let view = {type:'home'};
+
+function pad(n){ return n.toString().padStart(2,'0'); }
+function dateKey(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+function todayKey(){ return dateKey(new Date()); }
+function dayId(m,w,d){ return `m${m}-w${w}-d${d}`; }
+function getDay(m,w,d){ return PILLARS[m].weeks[w].days[d]; }
+function showToast(msg, celebrate){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.toggle('celebrate', !!celebrate); t.classList.add('show');
+  clearTimeout(showToast._h);
+  showToast._h = setTimeout(()=>t.classList.remove('show'), celebrate?2400:1600);
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      state.progress = parsed.progress || {};
+      state.favorites = parsed.favorites || [];
+      state.settings = Object.assign({dark:false, onboarded:false}, parsed.settings || {});
+      state.lastOpened = parsed.lastOpened || null;
+    }
+  } catch(e){ console.error('No se pudo leer', e); }
+  applyTheme();
+  render();
+  if(!state.settings.onboarded){ document.getElementById('onboardModal').classList.add('show'); }
+}
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ console.error('No se pudo guardar', e); showToast('No se pudo guardar'); }
+}
+function applyTheme(){ document.body.classList.toggle('dark', !!state.settings.dark); }
+
+document.getElementById('onboardClose').addEventListener('click', ()=>{
+  state.settings.onboarded = true; saveState();
+  document.getElementById('onboardModal').classList.remove('show');
+});
+
+/* ---------- Streak ---------- */
+function completedDatesSet(){
+  const s = new Set();
+  Object.values(state.progress).forEach(p=>{ if(p.completed && p.completedAt) s.add(p.completedAt); });
+  return s;
+}
+function currentStreak(){
+  const dates = completedDatesSet();
+  let streak = 0; let cursor = new Date();
+  while(dates.has(dateKey(cursor))){ streak++; cursor.setDate(cursor.getDate()-1); }
+  return streak;
+}
+function totalCompleted(){ return Object.values(state.progress).filter(p=>p.completed).length; }
+
+/* ---------- Next capsule (continuar) ---------- */
+function findNext(){
+  for(let m=0;m<PILLARS.length;m++){
+    if(PILLARS[m].locked) continue;
+    for(let w=0; w<PILLARS[m].weeks.length; w++){
+      for(let d=0; d<PILLARS[m].weeks[w].days.length; d++){
+        const id = dayId(m,w,d);
+        if(!(state.progress[id] && state.progress[id].completed)) return {m,w,d,id};
+      }
+    }
+  }
+  return null;
+}
+
+/* ---------- Rendering ---------- */
+function render(){
+  const app = document.getElementById('app');
+  if(view.type==='home') app.innerHTML = renderHome();
+  else if(view.type==='pillar') app.innerHTML = renderPillar(view.m);
+  else if(view.type==='week') app.innerHTML = renderWeek(view.m, view.w);
+  bindEvents();
+}
+
+function renderHome(){
+  const next = findNext();
+  const streak = currentStreak();
+  let html = `
+    <header>
+      <div>
+        <div class="eyebrow">DEVOCIONAL DIARIO</div>
+        <h1>365 Cápsulas<br>de Vida</h1>
+        <div class="subtitle">"Cada día, un paso más cerca de quien Dios te llama a ser."</div>
+      </div>
+      <button class="theme-btn" id="themeToggle">${state.settings.dark?'☀️':'🌙'}</button>
+    </header>
+    <div class="streak-pill">🔥 ${streak} día${streak===1?'':'s'} de racha · ${totalCompleted()} cápsulas completadas</div>
+  `;
+  if(next){
+    const d = getDay(next.m, next.w, next.d);
+    const pillar = PILLARS[next.m];
+    html += `
+      <div class="continue-card" data-goto="${next.m}|${next.w}|${next.d}">
+        <div class="continue-eyebrow">${pillar.icon} ${pillar.name} · ${PILLARS[next.m].weeks[next.w].title}</div>
+        <div class="continue-title">${d.title}</div>
+        <div class="continue-sub">Cápsula ${next.d+1} de 7 esta semana</div>
+        <button class="continue-btn">Abrir cápsula de hoy</button>
+      </div>`;
+  } else {
+    html += `<div class="continue-card"><div class="continue-title">¡Completaste todo el contenido disponible! 🎉</div><div class="continue-sub">Pronto se habilitan más meses.</div></div>`;
+  }
+
+  html += `<div class="section-head"><div class="section-title">Pilares del año</div><div class="section-sub">12 meses</div></div>`;
+  html += `<div class="pillar-grid">`;
+  PILLARS.forEach(p=>{
+    if(p.locked){
+      html += `<div class="pillar-card locked"><div class="lock-badge">🔒</div><div class="pillar-icon">${p.icon}</div><div class="pillar-month">${p.monthLabel}</div><div class="pillar-name">${p.name}</div><div class="pillar-progress">Próximamente</div></div>`;
+    } else {
+      const totalDays = p.weeks.reduce((s,w)=>s+w.days.length,0);
+      let done = 0;
+      p.weeks.forEach((w,wi)=>w.days.forEach((_,di)=>{ const id=dayId(p.id,wi,di); if(state.progress[id]&&state.progress[id].completed) done++; }));
+      html += `<div class="pillar-card" data-pillar="${p.id}"><div class="pillar-icon">${p.icon}</div><div class="pillar-month">${p.monthLabel}</div><div class="pillar-name">${p.name}</div><div class="pillar-progress">${done}/${totalDays} completadas</div></div>`;
+    }
+  });
+  html += `</div>`;
+
+  html += `<div class="section-head"><div class="section-title">Mis versículos favoritos</div><div class="section-sub">${state.favorites.length}</div></div>`;
+  if(state.favorites.length===0){
+    html += `<div class="empty">Toca la estrella dentro de una cápsula para guardar aquí los pasajes que más te marquen.</div>`;
+  } else {
+    html += `<div class="fav-list">` + state.favorites.map(id=>{
+      const [m,w,d] = id.match(/m(\d+)-w(\d+)-d(\d+)/).slice(1).map(Number);
+      const day = getDay(m,w,d);
+      return `<div class="fav-item" data-goto="${m}|${w}|${d}"><div class="fav-item-title">★ ${day.title}</div><div class="fav-item-ref">${day.verseRef}</div></div>`;
+    }).join('') + `</div>`;
+  }
+
+  html += `
+    <div class="section-head"><div class="section-title">Respaldo</div><div class="section-sub"></div></div>
+    <div class="backup-card">
+      <div class="backup-row">
+        <button class="btn-secondary" id="exportBtn">Exportar copia</button>
+        <button class="btn-secondary" id="importBtn">Importar copia</button>
+        <input type="file" id="importFile" accept="application/json" style="display:none;">
+      </div>
+      <div class="backup-hint">Todo vive solo en este dispositivo. Exporta un archivo de respaldo de vez en cuando para no perder tu progreso y tus reflexiones.</div>
+    </div>`;
+  return html;
+}
+
+function renderPillar(m){
+  const p = PILLARS[m];
+  let html = `<button class="back-btn" data-back="home">‹ Volver a pilares</button>
+    <div class="eyebrow">${p.monthLabel}</div>
+    <h1 style="font-size:24px;">${p.icon} ${p.name}</h1>
+    <div class="subtitle">4 semanas para trabajar este pilar en profundidad</div>
+    <div class="week-list">`;
+  p.weeks.forEach((w, wi)=>{
+    let done = 0; w.days.forEach((_,di)=>{ const id=dayId(m,wi,di); if(state.progress[id]&&state.progress[id].completed) done++; });
+    html += `<div class="week-card" data-week="${wi}">
+      <div><div class="week-card-title">Semana ${wi+1}: ${w.title}</div><div class="week-card-sub">${done}/${w.days.length} cápsulas completadas</div></div>
+      <div style="font-size:18px; color:var(--ink-soft);">›</div>
+    </div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+function renderWeek(m, w){
+  const pillar = PILLARS[m];
+  const week = pillar.weeks[w];
+  let html = `<button class="back-btn" data-back="pillar" data-m="${m}">‹ Volver a ${pillar.name}</button>
+    <div class="eyebrow">SEMANA ${w+1}</div>
+    <h1 style="font-size:22px;">${week.title}</h1>
+    <div class="subtitle">${pillar.icon} ${pillar.name}</div>
+    <div class="day-list">`;
+  week.days.forEach((day, di)=>{
+    const id = dayId(m,w,di);
+    const done = state.progress[id] && state.progress[id].completed;
+    const fav = state.favorites.includes(id);
+    html += `<div class="day-card" data-day="${di}">
+      <div class="day-check ${done?'done':''}">${done?'✓':''}</div>
+      <div style="flex:1;"><div class="day-card-title">Día ${di+1}: ${day.title}${fav?' <span class=\"fav-star\">★</span>':''}</div><div class="day-card-sub">${day.verseRef}</div></div>
+      <div style="font-size:18px; color:var(--ink-soft);">›</div>
+    </div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+/* ---------- Event binding ---------- */
+function bindEvents(){
+  const app = document.getElementById('app');
+  const themeBtn = document.getElementById('themeToggle');
+  if(themeBtn) themeBtn.addEventListener('click', ()=>{ state.settings.dark=!state.settings.dark; applyTheme(); saveState(); });
+
+  app.querySelectorAll('[data-pillar]').forEach(el=>{
+    el.addEventListener('click', ()=>{ view = {type:'pillar', m:parseInt(el.dataset.pillar)}; render(); window.scrollTo(0,0); });
+  });
+  app.querySelectorAll('[data-week]').forEach(el=>{
+    el.addEventListener('click', ()=>{ view = {type:'week', m:view.m, w:parseInt(el.dataset.week)}; render(); window.scrollTo(0,0); });
+  });
+  app.querySelectorAll('[data-day]').forEach(el=>{
+    el.addEventListener('click', ()=> openCapsule(view.m, view.w, parseInt(el.dataset.day)));
+  });
+  app.querySelectorAll('[data-back]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      if(el.dataset.back==='home'){ view={type:'home'}; }
+      else if(el.dataset.back==='pillar'){ view={type:'pillar', m:parseInt(el.dataset.m)}; }
+      render(); window.scrollTo(0,0);
+    });
+  });
+  const continueCard = app.querySelector('.continue-card[data-goto]');
+  if(continueCard){
+    continueCard.addEventListener('click', ()=>{
+      const [m,w,d] = continueCard.dataset.goto.split('|').map(Number);
+      openCapsule(m,w,d);
+    });
+  }
+  app.querySelectorAll('.fav-item[data-goto]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const [m,w,d] = el.dataset.goto.split('|').map(Number);
+      openCapsule(m,w,d);
+    });
+  });
+  const exportBtn = document.getElementById('exportBtn');
+  if(exportBtn) exportBtn.addEventListener('click', exportBackup);
+  const importBtn = document.getElementById('importBtn');
+  if(importBtn) importBtn.addEventListener('click', ()=> document.getElementById('importFile').click());
+  const importFile = document.getElementById('importFile');
+  if(importFile) importFile.addEventListener('change', handleImportFile);
+}
+
+/* ---------- Capsule modal ---------- */
+let capsuleCtx = null;
+function openCapsule(m,w,d){
+  const day = getDay(m,w,d);
+  const id = dayId(m,w,d);
+  capsuleCtx = {m,w,d,id};
+  if(!state.progress[id]) state.progress[id] = {completed:false, completedAt:null, answers:{}};
+  const p = state.progress[id];
+  const isFav = state.favorites.includes(id);
+
+  const questionsHtml = day.questions.map((q,qi)=>`
+    <div class="q-block">
+      <div class="q-label"><span class="q-num">${qi+1}</span>${q}</div>
+      <textarea data-qidx="${qi}" placeholder="Escribe tu respuesta...">${p.answers[qi]||''}</textarea>
+    </div>`).join('');
+
+  document.getElementById('capsuleSheet').innerHTML = `
+    <div class="capsule-top">
+      <button class="capsule-close" id="capsuleCloseBtn">✕</button>
+      <button class="capsule-fav ${isFav?'active':''}" id="capsuleFavBtn">★</button>
+    </div>
+    <div class="capsule-body">
+      <div class="capsule-eyebrow">${PILLARS[m].icon} ${PILLARS[m].name} · Semana ${w+1} · Día ${d+1}</div>
+      <div class="capsule-title">${day.title}</div>
+      <div class="verse-card"><div class="verse-ref">${day.verseRef}</div><div class="verse-text">${day.versePara}</div></div>
+      <div class="reflection-text">${day.reflection}</div>
+      <div class="quote-strip"><div class="quote-strip-text">"${day.quote.text}"</div><div class="quote-strip-author">— ${day.quote.author}</div></div>
+      ${questionsHtml}
+      <div class="capsule-actions">
+        <button class="btn-complete ${p.completed?'done':''}" id="completeBtn">${p.completed?'✓ Completada hoy':'Marcar como completada'}</button>
+        <button class="btn-share" id="shareBtn">⤴</button>
+      </div>
+      <span class="save-note" id="capsuleSaved"></span>
+    </div>
+  `;
+  document.getElementById('capsuleOverlay').classList.add('show');
+  document.getElementById('capsuleSheet').scrollTop = 0;
+
+  document.getElementById('capsuleCloseBtn').addEventListener('click', closeCapsule);
+  document.getElementById('capsuleFavBtn').addEventListener('click', toggleFavorite);
+  document.getElementById('completeBtn').addEventListener('click', markComplete);
+  document.getElementById('shareBtn').addEventListener('click', shareCapsule);
+
+  let saveTimer = null;
+  document.querySelectorAll('#capsuleSheet textarea').forEach(ta=>{
+    ta.addEventListener('input', e=>{
+      const qi = e.target.dataset.qidx;
+      state.progress[id].answers[qi] = e.target.value;
+      document.getElementById('capsuleSaved').textContent = 'Guardando…';
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(()=>{
+        saveState();
+        document.getElementById('capsuleSaved').textContent = 'Guardado ✓';
+        setTimeout(()=>{ const el=document.getElementById('capsuleSaved'); if(el) el.textContent=''; }, 1400);
+      }, 700);
+    });
+  });
+}
+function closeCapsule(){ document.getElementById('capsuleOverlay').classList.remove('show'); capsuleCtx=null; render(); }
+function toggleFavorite(){
+  if(!capsuleCtx) return;
+  const id = capsuleCtx.id;
+  const idx = state.favorites.indexOf(id);
+  if(idx>=0){ state.favorites.splice(idx,1); } else { state.favorites.push(id); }
+  saveState();
+  document.getElementById('capsuleFavBtn').classList.toggle('active', state.favorites.includes(id));
+  showToast(idx>=0 ? 'Quitado de favoritos' : '★ Guardado en favoritos');
+}
+function markComplete(){
+  if(!capsuleCtx) return;
+  const p = state.progress[capsuleCtx.id];
+  const wasCompleted = p.completed;
+  p.completed = !wasCompleted;
+  p.completedAt = p.completed ? todayKey() : null;
+  state.lastOpened = capsuleCtx.id;
+  saveState();
+  const btn = document.getElementById('completeBtn');
+  btn.textContent = p.completed ? '✓ Completada hoy' : 'Marcar como completada';
+  btn.classList.toggle('done', p.completed);
+  if(p.completed){ showToast('🕊️ Cápsula completada — ¡sigue así!', true); }
+}
+function shareCapsule(){
+  if(!capsuleCtx) return;
+  const day = getDay(capsuleCtx.m, capsuleCtx.w, capsuleCtx.d);
+  const canvas = document.getElementById('shareCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const grad = ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,'#1B2A4A'); grad.addColorStop(1,'#3A2A1A');
+  ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = 'rgba(255,255,255,.04)';
+  for(let i=0;i<40;i++){ ctx.beginPath(); ctx.arc(Math.random()*W, Math.random()*H, Math.random()*2+0.5, 0, Math.PI*2); ctx.fill(); }
+
+  ctx.fillStyle = '#D9A441';
+  ctx.font = '32px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('✦ 365 CÁPSULAS DE VIDA ✦', W/2, 140);
+
+  ctx.fillStyle = '#F4F6FB';
+  ctx.font = 'italic 44px Georgia, serif';
+  wrapText(ctx, `"${day.versePara}"`, W/2, 420, 880, 58);
+
+  ctx.fillStyle = '#D9A441';
+  ctx.font = '30px Inter, sans-serif';
+  ctx.fillText(day.verseRef, W/2, 760);
+
+  ctx.strokeStyle = 'rgba(217,164,65,.5)';
+  ctx.beginPath(); ctx.moveTo(W/2-60,810); ctx.lineTo(W/2+60,810); ctx.stroke();
+
+  ctx.fillStyle = 'rgba(244,246,251,.75)';
+  ctx.font = '26px Inter, sans-serif';
+  ctx.fillText(day.title, W/2, 870);
+
+  canvas.toBlob(blob=>{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `capsula-${day.title.toLowerCase().replace(/\s+/g,'-')}.png`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 2000);
+    showToast('Imagen descargada 📤');
+  });
+}
+function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+  const words = text.split(' ');
+  let line = ''; let lines = [];
+  words.forEach(word=>{
+    const test = line + word + ' ';
+    if(ctx.measureText(test).width > maxWidth && line !== ''){ lines.push(line); line = word + ' '; }
+    else { line = test; }
+  });
+  lines.push(line);
+  const startY = y - (lines.length-1)*lineHeight/2;
+  lines.forEach((l,i)=> ctx.fillText(l.trim(), x, startY + i*lineHeight));
+}
+
+/* ---------- Backup ---------- */
+function exportBackup(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `capsulas-respaldo-${todayKey()}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 2000);
+  showToast('Copia exportada');
+}
+let pendingImport = null;
+function handleImportFile(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev=>{
+    try{
+      const parsed = JSON.parse(ev.target.result);
+      if(!parsed.progress){ throw new Error('formato inválido'); }
+      pendingImport = parsed;
+      document.getElementById('importModal').classList.add('show');
+    } catch(err){ showToast('El archivo no es una copia válida'); }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+document.getElementById('importCancel').addEventListener('click', ()=>{ pendingImport=null; document.getElementById('importModal').classList.remove('show'); });
+document.getElementById('importConfirm').addEventListener('click', ()=>{
+  if(!pendingImport) return;
+  state.progress = pendingImport.progress || {};
+  state.favorites = pendingImport.favorites || [];
+  state.settings = Object.assign({dark:false, onboarded:true}, pendingImport.settings || {});
+  state.lastOpened = pendingImport.lastOpened || null;
+  saveState(); applyTheme(); render();
+  document.getElementById('importModal').classList.remove('show');
+  pendingImport = null;
+  showToast('Copia restaurada ✓');
+});
+
+loadState();
+</script>
+</body>
+</html>
